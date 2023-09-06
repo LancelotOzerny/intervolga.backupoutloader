@@ -54,7 +54,53 @@ $options = [
             'N',
             ['checkbox']
         ]
-    ]
+    ],
+
+    'outload' => [
+        Loc::getMessage('LANCY.BACKUPOUTLOADER.TITLE.OUTLOAD_SETTINGS'),
+        [
+            'outload_count',
+            Loc::getMessage('LANCY.BACKUPOUTLOADER.OPTION.BACKUP_OUTLOAD_COUNT'),
+            '',
+            ['text']
+        ],
+        [
+            'outload_path',
+            Loc::getMessage('LANCY.BACKUPOUTLOADER.OPTION.BACKUP_OUTLOAD_PATH'),
+            '',
+            ['text']
+        ],
+        Loc::getMessage('LANCY.BACKUPOUTLOADER.TITLE.BACKUPS_SETTINGS'),
+        [
+            'outload_remove_current',
+            Loc::getMessage('LANCY.BACKUPOUTLOADER.OPTION.REMOVE_CURRENT'),
+            '',
+            [
+                'selectbox',
+                [
+                    'none' => Loc::getMessage('LANCY.BACKUPOUTLOADER.REMOVE_ARRAY.NOT'),
+                    'yes' => Loc::getMessage('LANCY.BACKUPOUTLOADER.REMOVE_ARRAY.YES'),
+                ]
+            ]
+        ],
+        [
+            'outload_remove_all',
+            Loc::getMessage('LANCY.BACKUPOUTLOADER.OPTION.REMOVE_OTHER'),
+            '',
+            [
+                'selectbox',
+                [
+                    'none' => Loc::getMessage('LANCY.BACKUPOUTLOADER.REMOVE_ARRAY.NOT'),
+                    'after' => Loc::getMessage('LANCY.BACKUPOUTLOADER.REMOVE_ARRAY.AFTER'),
+                    'before' => Loc::getMessage('LANCY.BACKUPOUTLOADER.REMOVE_ARRAY.BEFORE'),
+                ]
+            ]
+        ],
+    ],
+
+    'debug' => [
+
+    ],
 ];
 
 $tabs = [
@@ -63,6 +109,16 @@ $tabs = [
         'TAB' => Loc::getMessage('LANCY.BACKUPOUTLOADER.TAB.NAME.CONNECTION'),
         'TITLE' => Loc::getMessage('LANCY.BACKUPOUTLOADER.TAB.TITLE.CONNECTION'),
     ],
+    [
+        'DIV' => 'outload',
+        'TAB' => Loc::getMessage('LANCY.BACKUPOUTLOADER.TAB.NAME.OUTLOAD'),
+        'TITLE' => Loc::getMessage('LANCY.BACKUPOUTLOADER.TAB.TITLE.OUTLOAD'),
+    ],
+    /*[
+        'DIV' => 'debug',
+        'TAB' => Loc::getMessage('LANCY.BACKUPOUTLOADER.TAB.NAME.DEBUG'),
+        'TITLE' => Loc::getMessage('LANCY.BACKUPOUTLOADER.TAB.TITLE.DEBUG'),
+    ],*/
 ];
 
 // ###############################################################
@@ -86,8 +142,15 @@ $tabControl->Begin();
 ?>
 <form method='POST'>
     <?=bitrix_sessid_post()?>
+
     <?php $tabControl->BeginNextTab(); ?>
     <?php __AdmSettingsDrawList($module_id, $options['connection']); ?>
+
+    <?php $tabControl->BeginNextTab(); ?>
+    <?php __AdmSettingsDrawList($module_id, $options['outload']); ?>
+
+    <?php //$tabControl->BeginNextTab(); ?>
+    <?php //__AdmSettingsDrawList($module_id, $options['debug']); ?>
 
     <?php
     $tabControl->Buttons([
