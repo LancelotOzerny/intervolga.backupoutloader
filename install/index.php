@@ -25,12 +25,12 @@ Class lancy_backupoutloader extends CModule
 
     public function DoInstall()
     {
-        RegisterModule($this->MODULE_ID);
+        \Bitrix\Main\ModuleManager::registerModule($this->MODULE_ID);
     }
 
     public function DoUninstall()
     {
-        UnRegisterModule($this->MODULE_ID);
+        \Bitrix\Main\ModuleManager::unRegisterModule($this->MODULE_ID);
     }
 }
 ?>
