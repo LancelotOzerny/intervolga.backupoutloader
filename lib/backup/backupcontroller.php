@@ -4,6 +4,7 @@ namespace Lancy\BackupOutloader\Backup;
 class BackupController
 {
     private static self | null $instance = null;
+    public string $path;
 
     private function __construct()
     {
@@ -51,6 +52,27 @@ class BackupController
         return in_array($name, $this->getList());
     }
 
+    public function getAllParts(string $name)
+    {
+        $result = [];
+        $items = scandir($this->path);
+
+        foreach ($items as $item)
+        {
+            if (is_dir("$this->path/$item"))
+            {
+                continue;
+            }
+
+            if (str_contains($item, $name))
+            {
+                $result[] = $item;
+            }
+        }
+
+        return $result;
+    }
+
     public function getList() : array
     {
         $result = [];
@@ -85,6 +107,15 @@ class BackupController
         }
 
         return self::$instance;
+    }
+
+    public function deleteAll()
+    {
+        $backups = $this->getList();
+        foreach ($backups as $backup)
+        {
+            $this->delete($backup);
+        }
     }
 }
 ?>
