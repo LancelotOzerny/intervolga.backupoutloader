@@ -25,12 +25,44 @@ Class lancy_backupoutloader extends CModule
 
     public function DoInstall()
     {
+        $this->InstallFiles();
         \Bitrix\Main\ModuleManager::registerModule($this->MODULE_ID);
     }
 
     public function DoUninstall()
     {
+        $this->UnInstallFiles();
         \Bitrix\Main\ModuleManager::unRegisterModule($this->MODULE_ID);
+    }
+
+    public function InstallFiles()
+    {
+        $cronFolder = $_SERVER['DOCUMENT_ROOT'] . '/cron';
+        $installCronFolder = dirname(__FILE__) . '/cron';
+
+        if (is_dir($cronFolder) === false)
+        {
+            mkdir($cronFolder);
+        }
+
+        $files = scandir($installCronFolder);
+        foreach ($files as $file)
+        {
+            copy("$installCronFolder/$file", "$cronFolder/$file");
+        }
+    }
+
+    public function UnInstallFiles()
+    {
+        $cronFolder = $_SERVER['DOCUMENT_ROOT'] . '/cron';
+        if (is_dir($cronFolder))
+        {
+            $files = scandir(dirname(__FILE__) . '/cron');
+            foreach ($files as $file)
+            {
+                unlink($cronFolder . '/' . $file);
+            }
+        }
     }
 }
 ?>
