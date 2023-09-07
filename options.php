@@ -61,7 +61,7 @@ $options = [
         [
             'outload_count',
             Loc::getMessage('LANCY.BACKUPOUTLOADER.OPTION.BACKUP_OUTLOAD_COUNT'),
-            '',
+            '0',
             ['text']
         ],
         [
