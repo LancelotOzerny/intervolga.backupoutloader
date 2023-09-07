@@ -129,6 +129,7 @@ class FtpConnection
             return false;
         }
 
+        $start_path = $this->getDir();
         $folders = explode('/', $path);
         foreach ($folders as $folder)
         {
@@ -142,8 +143,7 @@ class FtpConnection
             $this->go($folder);
         }
 
-        $begin = str_repeat('/..', count($folders));
-        $this->go($begin);
+        $this->go($start_path);
 
         return true;
     }
@@ -158,7 +158,7 @@ class FtpConnection
         ftp_close($this->connection);
     }
 
-    public function send($localfile, $remotefile)
+    public function send(string $localfile, string $remotefile)
     {
         if ($this->connection === null)
         {
