@@ -112,12 +112,12 @@ $options = [
             '/log/backup_outload_log',
             ['text']
         ],
-        [
-            'debug_limit',
-            Loc::getMessage('LANCY.BACKUPOUTLOADER.OPTION.DEBUG_LIMIT'),
-            '0',
-            ['text']
-        ],
+        //[
+        //    'debug_limit',
+        //    Loc::getMessage('LANCY.BACKUPOUTLOADER.OPTION.DEBUG_LIMIT'),
+        //    '0',
+        //    ['text']
+        //],
 
     ],
 ];
