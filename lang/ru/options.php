@@ -16,6 +16,7 @@ $MESS['LANCY.BACKUPOUTLOADER.TITLE.CONNECTION_SETTINGS'] = 'Настройка F
 $MESS['LANCY.BACKUPOUTLOADER.TITLE.ADDITIONAL_SETTINGS'] = 'Дополнительные настройки FTP подключения';
 $MESS['LANCY.BACKUPOUTLOADER.TITLE.OUTLOAD_SETTINGS'] = 'Настройки выгрузки резервной копии';
 $MESS['LANCY.BACKUPOUTLOADER.TITLE.BACKUPS_SETTINGS'] = 'Управление резервными копиями';
+$MESS['LANCY.BACKUPOUTLOADER.TITLE.DEBUG_SETTINGS'] = 'Отладочные настройки';
 
 // ###############################################################
 // #    OPTIONS LANGUAGE PHRASES
@@ -29,6 +30,9 @@ $MESS['LANCY.BACKUPOUTLOADER.OPTION.BACKUP_OUTLOAD_COUNT'] = 'Количеств
 $MESS['LANCY.BACKUPOUTLOADER.OPTION.BACKUP_OUTLOAD_PATH'] = 'Путь к папке, в которой будет храниться содержимое';
 $MESS['LANCY.BACKUPOUTLOADER.OPTION.REMOVE_CURRENT'] = 'Удалять резервную копию после выгрузки';
 $MESS['LANCY.BACKUPOUTLOADER.OPTION.REMOVE_OTHER'] = 'Удалять остальные резервные копии';
+$MESS['LANCY.BACKUPOUTLOADER.OPTION.DEBUG_MODE'] = 'Включить отладку';
+$MESS['LANCY.BACKUPOUTLOADER.OPTION.DEBUG_COUNT'] = 'Директория для лог-файлов';
+$MESS['LANCY.BACKUPOUTLOADER.OPTION.DEBUG_LIMIT'] = 'Максимальное кол-во отладочных файлов (0 - неограниченно)';
 
 // ###############################################################
 // #    OTHER LANGUAGE PHRASES

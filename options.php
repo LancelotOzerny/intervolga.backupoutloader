@@ -99,6 +99,25 @@ $options = [
     ],
 
     'debug' => [
+        Loc::getMessage('LANCY.BACKUPOUTLOADER.TITLE.DEBUG_SETTINGS'),
+        [
+            'debug_mode',
+            Loc::getMessage('LANCY.BACKUPOUTLOADER.OPTION.DEBUG_MODE'),
+            'N',
+            ['checkbox']
+        ],
+        [
+            'debug_path',
+            Loc::getMessage('LANCY.BACKUPOUTLOADER.OPTION.DEBUG_COUNT'),
+            '/log/backup_outload_log',
+            ['text']
+        ],
+        [
+            'debug_limit',
+            Loc::getMessage('LANCY.BACKUPOUTLOADER.OPTION.DEBUG_LIMIT'),
+            '0',
+            ['text']
+        ],
 
     ],
 ];
@@ -114,11 +133,11 @@ $tabs = [
         'TAB' => Loc::getMessage('LANCY.BACKUPOUTLOADER.TAB.NAME.OUTLOAD'),
         'TITLE' => Loc::getMessage('LANCY.BACKUPOUTLOADER.TAB.TITLE.OUTLOAD'),
     ],
-    /*[
+    [
         'DIV' => 'debug',
         'TAB' => Loc::getMessage('LANCY.BACKUPOUTLOADER.TAB.NAME.DEBUG'),
         'TITLE' => Loc::getMessage('LANCY.BACKUPOUTLOADER.TAB.TITLE.DEBUG'),
-    ],*/
+    ],
 ];
 
 // ###############################################################
@@ -149,8 +168,8 @@ $tabControl->Begin();
     <?php $tabControl->BeginNextTab(); ?>
     <?php __AdmSettingsDrawList($module_id, $options['outload']); ?>
 
-    <?php //$tabControl->BeginNextTab(); ?>
-    <?php //__AdmSettingsDrawList($module_id, $options['debug']); ?>
+    <?php $tabControl->BeginNextTab(); ?>
+    <?php __AdmSettingsDrawList($module_id, $options['debug']); ?>
 
     <?php
     $tabControl->Buttons([
