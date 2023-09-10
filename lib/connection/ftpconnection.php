@@ -1,6 +1,6 @@
 <?php
 namespace Lancy\BackupOutloader\Connection;
-error_reporting(E_ALL);
+
 class FtpConnection
 {
     private $connection = null;
@@ -170,6 +170,11 @@ class FtpConnection
         while ($retry == FTP_MOREDATA)
         {
             $retry = ftp_nb_continue($this->connection);
+        }
+
+        if ($retry != FTP_FINISHED)
+        {
+            return false;
         }
 
         return $retry;
