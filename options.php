@@ -96,6 +96,13 @@ $options = [
                 ]
             ]
         ],
+        Loc::getMessage('LANCY.BACKUPOUTLOADER.OPTION.ADDITIONAL'),
+        [
+            'outload_additional',
+            Loc::getMessage('LANCY.BACKUPOUTLOADER.OPTION.ADDITIONAL_ARCHIVES'),
+            '',
+            ['textarea'],
+        ]
     ],
 
     'debug' => [
