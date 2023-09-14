@@ -19,6 +19,7 @@ $MESS['BACKUP_OUTLOAD.DELETE_NEW_BACKUP'] = 'Удаление новой рез�
 $MESS['BACKUP_OUTLOAD.SUCCESS_OUTLOAD'] = 'Выгрузка успешно завершена';
 $MESS['BACKUP_OUTLOAD.START_ARCHIVE_ADDITIONAL'] = 'Начало выгрузки дополнительных директорий';
 $MESS['BACKUP_OUTLOAD.END_ARCHIVE_ADDITIONAL'] = 'Конец выгрузки дополнительных директорий';
+$MESS['BACKUP_OUTLOAD.ADDITIONAL_DIRECTORY'] = 'Начало выгрузки директории ';
 
 // ###############################################################
 // #    ERRORS
@@ -29,3 +30,5 @@ $MESS['BACKUP_OUTLOAD.ERROR.FTP_AUTHORISE'] = 'Не удалось пройти 
 $MESS['BACKUP_OUTLOAD.ERROR.CHECK_SETTING'] = 'Ошибка в настройке данных. Измените настройки модуля';
 $MESS['BACKUP_OUTLOAD.ERROR.MODULE_INCLUDE'] = 'Не удалось подключить модуль';
 $MESS['BACKUP_OUTLOAD.ERROR.ARCHIVE_ADDITIONAL'] = 'Выгрузка дополнительных директорий звершилась с ошибкой: ';
+$MESS['BACKUP_OUTLOAD.ERROR.ADDITIONAL_DIRECTORY_NOT_EXISTS'] = 'Директория не найдена. Выгрузка данной директории пропущена.';
+$MESS['BACKUP_OUTLOAD.ERROR.TRANSFER_ADDITIONAL_ERROR'] = 'Не удалось отправить архив';

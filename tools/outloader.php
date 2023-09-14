@@ -5,7 +5,9 @@ use \Lancy\BackupOutloader\Log\Logger;
 use Bitrix\Main\Localization\Loc;
 
 set_time_limit(0);
-require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
+
+require $_SERVER["DOCUMENT_ROOT"] . '/bitrix/modules/main/include/prolog_before.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/classes/general/tar_gz.php';
 
 if (\Bitrix\Main\Loader::includeModule('lancy.backupoutloader') === false)
 {
@@ -29,6 +31,7 @@ $options = [
     'outload_path' => COption::GetOptionString('lancy.backupoutloader', 'outload_path'),
     'outload_remove_current' => COption::GetOptionString('lancy.backupoutloader', 'outload_remove_current'),
     'outload_remove_all' => COption::GetOptionString('lancy.backupoutloader', 'outload_remove_all'),
+    'outload_additional' => COption::GetOptionString('lancy.backupoutloader', 'outload_additional'),
 ];
 
 // ###############################################################
@@ -43,6 +46,22 @@ foreach (['connection_host', 'connection_port', 'connection_login', 'connection_
         $logger->Log($error);
         die($error);
     }
+}
+
+// ###############################################################
+// #    CHECK ADDITIONAL
+// ###############################################################
+$additionalDirs = explode("\n", $options['outload_additional']);
+
+foreach ($additionalDirs as $key => $additional)
+{
+    $arr = explode('/', $additional);
+
+    $additionalDirs[$key] = [
+        'name' => trim(end($arr)),
+        'path' => $_SERVER['DOCUMENT_ROOT'] . trim($additional),
+        'exists' => is_dir($_SERVER['DOCUMENT_ROOT']  . trim($additional)) ? 'Y' : 'N',
+    ];
 }
 
 // ###############################################################
@@ -200,18 +219,43 @@ else if ($options['outload_remove_current'] === 'yes')
 }
 
 // ###############################################################
-// #    ВЫГРУЗКА ДОПОЛНИТЕЛЬНЫХ ДИРЕКТРИЙ
+// #    ВЫГРУЗКА ДОПОЛНИТЕЛЬНЫХ ДИРЕКТОРИЙ
 // ###############################################################
 $logger->Log(Loc::getMessage('BACKUP_OUTLOAD.START_ARCHIVE_ADDITIONAL'));
-try {
 
-}
-catch (Throwable $e)
+foreach ($additionalDirs as $additional)
 {
-    $logger->Log(Loc::getMessage('BACKUP_OUTLOAD.ERROR.ARCHIVE_ADDITIONAL') . $e->getMessage());
-}
-$logger->Log(Loc::getMessage('BACKUP_OUTLOAD.END_ARCHIVE_ADDITIONAL'));
+    $logger->Log(Loc::getMessage('BACKUP_OUTLOAD.ADDITIONAL_DIRECTORY') . ': ' . $additional['path']);
+    if ($additional['exists'] === 'N')
+    {
+        $logger->Log(Loc::getMessage('BACKUP_OUTLOAD.ERROR.ADDITIONAL_DIRECTORY_NOT_EXISTS'));
+        continue;
+    }
 
+    $tarName =  $additional['name'] . '.tar.gz';
+    $tarDir = $_SERVER['DOCUMENT_ROOT'] . '/bitrix/backup/' . $tarName;
+
+    $archive = new CArchiver($tarDir, true);
+    $archive->Add('"' . $additional['path'] . '"', $additional['name'], $additional['path']);
+
+    $arErrors = $archive->GetErrors();
+    if(count($arErrors) > 0)
+    {
+        $errors = print_r($arErrors, true);
+        break;
+    }
+
+    $send = $ftp->send(BackupController::Instance()->path . '/' . $tarName, $tarName);
+
+    if ($send === false)
+    {
+        $logger->Log(Loc::getMessage('BACKUP_OUTLOAD.ERROR.TRANSFER_ADDITIONAL_ERROR'));
+    }
+
+    unlink( $_SERVER['DOCUMENT_ROOT'] . '/bitrix/backup/' . $tarName);
+}
+
+$logger->Log(Loc::getMessage('BACKUP_OUTLOAD.END_ARCHIVE_ADDITIONAL'));
 
 $logger->Log(Loc::getMessage('BACKUP_OUTLOAD.SUCCESS_OUTLOAD'));
 ?>
