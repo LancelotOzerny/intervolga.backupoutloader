@@ -199,5 +199,19 @@ else if ($options['outload_remove_current'] === 'yes')
     BackupController::Instance()->delete($currentBackup);
 }
 
+// ###############################################################
+// #    ВЫГРУЗКА ДОПОЛНИТЕЛЬНЫХ ДИРЕКТРИЙ
+// ###############################################################
+$logger->Log(Loc::getMessage('BACKUP_OUTLOAD.START_ARCHIVE_ADDITIONAL'));
+try {
+
+}
+catch (Throwable $e)
+{
+    $logger->Log(Loc::getMessage('BACKUP_OUTLOAD.ERROR.ARCHIVE_ADDITIONAL') . $e->getMessage());
+}
+$logger->Log(Loc::getMessage('BACKUP_OUTLOAD.END_ARCHIVE_ADDITIONAL'));
+
+
 $logger->Log(Loc::getMessage('BACKUP_OUTLOAD.SUCCESS_OUTLOAD'));
 ?>

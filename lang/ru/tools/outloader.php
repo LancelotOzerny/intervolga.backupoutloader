@@ -17,6 +17,8 @@ $MESS['BACKUP_OUTLOAD.DELETE_ALL_BACKUP_BEFORE'] = 'Удаление всех р
 $MESS['BACKUP_OUTLOAD.DELETE_ALL_BACKUP_AFTER'] = 'Удаление всех резервных копий после выгрузки';
 $MESS['BACKUP_OUTLOAD.DELETE_NEW_BACKUP'] = 'Удаление новой резервной копии';
 $MESS['BACKUP_OUTLOAD.SUCCESS_OUTLOAD'] = 'Выгрузка успешно завершена';
+$MESS['BACKUP_OUTLOAD.START_ARCHIVE_ADDITIONAL'] = 'Начало выгрузки дополнительных директорий';
+$MESS['BACKUP_OUTLOAD.END_ARCHIVE_ADDITIONAL'] = 'Конец выгрузки дополнительных директорий';
 
 // ###############################################################
 // #    ERRORS
@@ -26,3 +28,4 @@ $MESS['BACKUP_OUTLOAD.ERROR.BACKUP_CREATE'] = 'Ошибка создания р�
 $MESS['BACKUP_OUTLOAD.ERROR.FTP_AUTHORISE'] = 'Не удалось пройти FTP вторизацию';
 $MESS['BACKUP_OUTLOAD.ERROR.CHECK_SETTING'] = 'Ошибка в настройке данных. Измените настройки модуля';
 $MESS['BACKUP_OUTLOAD.ERROR.MODULE_INCLUDE'] = 'Не удалось подключить модуль';
+$MESS['BACKUP_OUTLOAD.ERROR.ARCHIVE_ADDITIONAL'] = 'Выгрузка дополнительных директорий звершилась с ошибкой: ';
