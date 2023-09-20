@@ -21,6 +21,22 @@ class FtpConnection
         return false;
     }
 
+    public function __construct(array $params = [])
+    {
+        $this->setParams($params);
+    }
+
+    public function checkTryConnection() : bool
+    {
+        if ($this->connect())
+        {
+            $this->close();
+            return true;
+        }
+
+        return false;
+    }
+
     public function setParams(array $params = [])
     {
         $this->hostname =   isset($params['HOST'])      ?   $params['HOST'] : '';
