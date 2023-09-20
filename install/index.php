@@ -3,9 +3,9 @@ use Bitrix\Main\Localization\Loc;
 
 Loc::loadMessages(__FILE__);
 
-Class lancy_backupoutloader extends CModule
+Class intervolga_outloader extends CModule
 {
-    var $MODULE_ID = "lancy.backupoutloader";
+    var $MODULE_ID = "intervolga.outloader";
     var $MODULE_GROUP_RIGHTS = "Y";
 
     public function __construct()
@@ -19,8 +19,8 @@ Class lancy_backupoutloader extends CModule
             $this->MODULE_VERSION_DATE = $arModuleVersion['VERSION_DATE'];
         }
 
-        $this->MODULE_NAME = Loc::getMessage('LANCY_BACKUPOUTLOADER.MODULE.NAME');
-        $this->MODULE_DESCRIPTION = Loc::getMessage('LANCY_BACKUPOUTLOADER.MODULE.DESCRIPTION');
+        $this->MODULE_NAME = Loc::getMessage('INTERVOLGA_BACKUPOUTLOADER.MODULE.NAME');
+        $this->MODULE_DESCRIPTION = Loc::getMessage('INTERVOLGA_BACKUPOUTLOADER.MODULE.DESCRIPTION');
     }
 
     public function DoInstall()

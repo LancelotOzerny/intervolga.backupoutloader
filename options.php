@@ -22,106 +22,106 @@ global $APPLICATION, $USER;
 // ###############################################################
 $options = [
     'connection' => [
-        Loc::getMessage('LANCY.BACKUPOUTLOADER.TITLE.CONNECTION_SETTINGS'),
+        Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.TITLE.CONNECTION_SETTINGS'),
         [
             'connection_host',
-            Loc::getMessage('LANCY.BACKUPOUTLOADER.OPTION.HOSTNAME'),
+            Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.OPTION.HOSTNAME'),
             '',
             ['text']
         ],
         [
             'connection_port',
-            Loc::getMessage('LANCY.BACKUPOUTLOADER.OPTION.PORT'),
+            Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.OPTION.PORT'),
             '21',
             ['text']
         ],
         [
             'connection_login',
-            Loc::getMessage('LANCY.BACKUPOUTLOADER.OPTION.LOGIN'),
+            Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.OPTION.LOGIN'),
             '',
             ['text']
         ],
         [
             'connection_password',
-            Loc::getMessage('LANCY.BACKUPOUTLOADER.OPTION.PASSWORD'),
+            Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.OPTION.PASSWORD'),
             '',
             ['password']
         ],
-        Loc::getMessage('LANCY.BACKUPOUTLOADER.TITLE.ADDITIONAL_SETTINGS'),
+        Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.TITLE.ADDITIONAL_SETTINGS'),
         [
             'connection_passive_mode',
-            Loc::getMessage('LANCY.BACKUPOUTLOADER.OPTION.PASSIVE_MODE'),
+            Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.OPTION.PASSIVE_MODE'),
             'N',
             ['checkbox']
         ]
     ],
 
     'outload' => [
-        Loc::getMessage('LANCY.BACKUPOUTLOADER.TITLE.OUTLOAD_SETTINGS'),
+        Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.TITLE.OUTLOAD_SETTINGS'),
         [
             'outload_count',
-            Loc::getMessage('LANCY.BACKUPOUTLOADER.OPTION.BACKUP_OUTLOAD_COUNT'),
+            Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.OPTION.BACKUP_OUTLOAD_COUNT'),
             '0',
             ['text']
         ],
         [
             'outload_path',
-            Loc::getMessage('LANCY.BACKUPOUTLOADER.OPTION.BACKUP_OUTLOAD_PATH'),
+            Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.OPTION.BACKUP_OUTLOAD_PATH'),
             '',
             ['text']
         ],
-        Loc::getMessage('LANCY.BACKUPOUTLOADER.TITLE.BACKUPS_SETTINGS'),
+        Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.TITLE.BACKUPS_SETTINGS'),
         [
             'outload_remove_current',
-            Loc::getMessage('LANCY.BACKUPOUTLOADER.OPTION.REMOVE_CURRENT'),
+            Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.OPTION.REMOVE_CURRENT'),
             '',
             [
                 'selectbox',
                 [
-                    'none' => Loc::getMessage('LANCY.BACKUPOUTLOADER.REMOVE_ARRAY.NOT'),
-                    'yes' => Loc::getMessage('LANCY.BACKUPOUTLOADER.REMOVE_ARRAY.YES'),
+                    'none' => Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.REMOVE_ARRAY.NOT'),
+                    'yes' => Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.REMOVE_ARRAY.YES'),
                 ]
             ]
         ],
         [
             'outload_remove_all',
-            Loc::getMessage('LANCY.BACKUPOUTLOADER.OPTION.REMOVE_OTHER'),
+            Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.OPTION.REMOVE_OTHER'),
             '',
             [
                 'selectbox',
                 [
-                    'none' => Loc::getMessage('LANCY.BACKUPOUTLOADER.REMOVE_ARRAY.NOT'),
-                    'after' => Loc::getMessage('LANCY.BACKUPOUTLOADER.REMOVE_ARRAY.AFTER'),
-                    'before' => Loc::getMessage('LANCY.BACKUPOUTLOADER.REMOVE_ARRAY.BEFORE'),
+                    'none' => Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.REMOVE_ARRAY.NOT'),
+                    'after' => Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.REMOVE_ARRAY.AFTER'),
+                    'before' => Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.REMOVE_ARRAY.BEFORE'),
                 ]
             ]
         ],
-        Loc::getMessage('LANCY.BACKUPOUTLOADER.OPTION.ADDITIONAL'),
+        Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.OPTION.ADDITIONAL'),
         [
             'outload_additional',
-            Loc::getMessage('LANCY.BACKUPOUTLOADER.OPTION.ADDITIONAL_ARCHIVES'),
+            Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.OPTION.ADDITIONAL_ARCHIVES'),
             '',
             ['textarea'],
         ]
     ],
 
     'debug' => [
-        Loc::getMessage('LANCY.BACKUPOUTLOADER.TITLE.DEBUG_SETTINGS'),
+        Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.TITLE.DEBUG_SETTINGS'),
         [
             'debug_mode',
-            Loc::getMessage('LANCY.BACKUPOUTLOADER.OPTION.DEBUG_MODE'),
+            Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.OPTION.DEBUG_MODE'),
             'N',
             ['checkbox']
         ],
         [
             'debug_path',
-            Loc::getMessage('LANCY.BACKUPOUTLOADER.OPTION.DEBUG_COUNT'),
+            Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.OPTION.DEBUG_COUNT'),
             '/log/backup_outload_log',
             ['text']
         ],
         //[
         //    'debug_limit',
-        //    Loc::getMessage('LANCY.BACKUPOUTLOADER.OPTION.DEBUG_LIMIT'),
+        //    Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.OPTION.DEBUG_LIMIT'),
         //    '0',
         //    ['text']
         //],
@@ -132,18 +132,18 @@ $options = [
 $tabs = [
     [
         'DIV' => 'connection',
-        'TAB' => Loc::getMessage('LANCY.BACKUPOUTLOADER.TAB.NAME.CONNECTION'),
-        'TITLE' => Loc::getMessage('LANCY.BACKUPOUTLOADER.TAB.TITLE.CONNECTION'),
+        'TAB' => Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.TAB.NAME.CONNECTION'),
+        'TITLE' => Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.TAB.TITLE.CONNECTION'),
     ],
     [
         'DIV' => 'outload',
-        'TAB' => Loc::getMessage('LANCY.BACKUPOUTLOADER.TAB.NAME.OUTLOAD'),
-        'TITLE' => Loc::getMessage('LANCY.BACKUPOUTLOADER.TAB.TITLE.OUTLOAD'),
+        'TAB' => Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.TAB.NAME.OUTLOAD'),
+        'TITLE' => Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.TAB.TITLE.OUTLOAD'),
     ],
     [
         'DIV' => 'debug',
-        'TAB' => Loc::getMessage('LANCY.BACKUPOUTLOADER.TAB.NAME.DEBUG'),
-        'TITLE' => Loc::getMessage('LANCY.BACKUPOUTLOADER.TAB.TITLE.DEBUG'),
+        'TAB' => Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.TAB.NAME.DEBUG'),
+        'TITLE' => Loc::getMessage('INTERVOLGA.BACKUPOUTLOADER.TAB.TITLE.DEBUG'),
     ],
 ];
 

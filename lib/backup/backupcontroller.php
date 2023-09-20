@@ -1,5 +1,5 @@
 <?php
-namespace Lancy\BackupOutloader\Backup;
+namespace Intervolga\BackupOutloader\Backup;
 
 class BackupController
 {

@@ -2,7 +2,7 @@
 // ###############################################################
 // #    MESSAGES
 // ###############################################################
-$MESS['BACKUP_OUTLOAD.MODULE_INCLUDE'] = 'Удалось подключить модуль lancy.backupoutloader';
+$MESS['BACKUP_OUTLOAD.MODULE_INCLUDE'] = 'Удалось подключить модуль intervolga.backupoutloader';
 $MESS['BACKUP_OUTLOAD.GET_OPTION_DATA'] = 'Получение настроек модуля';
 $MESS['BACKUP_OUTLOAD.FTP_AUTHORISE_SUCCESSFUL'] = 'Удалось пройти FTP вторизацию';
 $MESS['BACKUP_OUTLOAD.PREPARE_TO_OUTLOAD'] = 'Подготовка к выгрузке';

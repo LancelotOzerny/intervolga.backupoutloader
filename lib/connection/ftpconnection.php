@@ -1,5 +1,5 @@
 <?php
-namespace Lancy\BackupOutloader\Connection;
+namespace Intervolga\BackupOutloader\Connection;
 
 class FtpConnection
 {
@@ -158,27 +158,21 @@ class FtpConnection
         ftp_close($this->connection);
     }
 
-    public function send(string $localfile, string $remotefile)
+    public function send(string $localFile, string $remoteFile) : bool
     {
         if ($this->connection === null)
         {
             return false;
         }
 
-        $retry = ftp_nb_put($this->connection, $remotefile, $localfile);
+        $result = ftp_put($this->connection, $remoteFile, $localFile);
 
-        while ($retry == FTP_MOREDATA)
-        {
-            $retry = ftp_nb_continue($this->connection);
-        }
-
-        if ($retry != FTP_FINISHED)
-        {
-            return false;
-        }
-
-        return $retry;
+        return $result;
     }
 
+    public function isConnected() : bool
+    {
+        return $this->connection === null;
+    }
 }
 ?>

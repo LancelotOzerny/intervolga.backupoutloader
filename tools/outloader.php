@@ -1,7 +1,7 @@
 <?php
-use \Lancy\BackupOutloader\Backup\BackupController;
-use \Lancy\BackupOutloader\Connection\FtpConnection;
-use \Lancy\BackupOutloader\Log\Logger;
+use \Intervolga\BackupOutloader\Backup\BackupController;
+use \Intervolga\BackupOutloader\Connection\FtpConnection;
+use \Intervolga\BackupOutloader\Log\Logger;
 use Bitrix\Main\Localization\Loc;
 
 set_time_limit(0);
@@ -9,7 +9,7 @@ set_time_limit(0);
 require $_SERVER["DOCUMENT_ROOT"] . '/bitrix/modules/main/include/prolog_before.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/classes/general/tar_gz.php';
 
-if (\Bitrix\Main\Loader::includeModule('lancy.backupoutloader') === false)
+if (\Bitrix\Main\Loader::includeModule('intervolga.backupoutloader') === false)
 {
     die(Loc::getMessage('BACKUP_OUTLOAD.ERROR.MODULE_INCLUDE'));
 }
@@ -21,17 +21,17 @@ $logger->Log(Loc::getMessage('BACKUP_OUTLOAD.MODULE_INCLUDE'));
 // ###############################################################
 $logger->Log(Loc::getMessage('BACKUP_OUTLOAD.GET_OPTION_DATA'));
 $options = [
-    'connection_host' => COption::GetOptionString('lancy.backupoutloader', 'connection_host'),
-    'connection_port' => COption::GetOptionString('lancy.backupoutloader', 'connection_port'),
-    'connection_login' => COption::GetOptionString('lancy.backupoutloader', 'connection_login'),
-    'connection_password' => COption::GetOptionString('lancy.backupoutloader', 'connection_password'),
-    'connection_passive_mode' => COption::GetOptionString('lancy.backupoutloader', 'connection_passive_mode'),
+    'connection_host' => COption::GetOptionString('intervolga.backupoutloader', 'connection_host'),
+    'connection_port' => COption::GetOptionString('intervolga.backupoutloader', 'connection_port'),
+    'connection_login' => COption::GetOptionString('intervolga.backupoutloader', 'connection_login'),
+    'connection_password' => COption::GetOptionString('intervolga.backupoutloader', 'connection_password'),
+    'connection_passive_mode' => COption::GetOptionString('intervolga.backupoutloader', 'connection_passive_mode'),
 
-    'outload_count' => COption::GetOptionString('lancy.backupoutloader', 'outload_count'),
-    'outload_path' => COption::GetOptionString('lancy.backupoutloader', 'outload_path'),
-    'outload_remove_current' => COption::GetOptionString('lancy.backupoutloader', 'outload_remove_current'),
-    'outload_remove_all' => COption::GetOptionString('lancy.backupoutloader', 'outload_remove_all'),
-    'outload_additional' => COption::GetOptionString('lancy.backupoutloader', 'outload_additional'),
+    'outload_count' => COption::GetOptionString('intervolga.backupoutloader', 'outload_count'),
+    'outload_path' => COption::GetOptionString('intervolga.backupoutloader', 'outload_path'),
+    'outload_remove_current' => COption::GetOptionString('intervolga.backupoutloader', 'outload_remove_current'),
+    'outload_remove_all' => COption::GetOptionString('intervolga.backupoutloader', 'outload_remove_all'),
+    'outload_additional' => COption::GetOptionString('intervolga.backupoutloader', 'outload_additional'),
 ];
 
 // ###############################################################
@@ -190,6 +190,11 @@ foreach ($backupParts as $part)
 
     if ($send === false)
     {
+        if ($ftp->isConnected() === false)
+        {
+            $logger->Log('Пропало соединение с сервером. Подклчение не обнаружено');
+        }
+
         $logger->Log(Loc::getMessage('BACKUP_OUTLOAD.ERROR.TRANSFER_ERROR'));
         die(Loc::getMessage('BACKUP_OUTLOAD.ERROR.TRANSFER_ERROR'));
     }
