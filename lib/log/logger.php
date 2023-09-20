@@ -1,24 +1,30 @@
 <?php
 
-namespace Lancy\BackupOutloader\Log;
+namespace Intervolga\BackupOutloader\Log;
 
 class Logger
 {
     private bool $debugMode;
     private string $debugPath;
+    private string $title;
     private int $debugLimit;
 
     public function __construct()
     {
-        $this->debugMode =  \COption::GetOptionString('lancy.backupoutloader', 'debug_mode');
-        $this->debugLimit = intval(\COption::GetOptionString('lancy.backupoutloader', 'debug_limit'));
+        $this->debugMode =  \COption::GetOptionString('intervolga.backupoutloader', 'debug_mode');
+        $this->debugLimit = intval(\COption::GetOptionString('intervolga.backupoutloader', 'debug_limit'));
+        $this->title = '__backup_outload_' . date('Y-m-d___H:i:s') . '__.csv';
 
         $this->setLogFolder();
+
+        $temp = fopen($this->debugPath . '/' . $this->title, 'a+');
+        fwrite($temp, "Data;Message;"  . PHP_EOL);
+        fclose($temp);
     }
 
     private function setLogFolder()
     {
-        $startPath = \COption::GetOptionString('lancy.backupoutloader', 'debug_path');
+        $startPath = \COption::GetOptionString('intervolga.backupoutloader', 'debug_path');
         $startPath = trim($startPath, '/');
         $path = $_SERVER['DOCUMENT_ROOT'];
 
@@ -45,14 +51,13 @@ class Logger
 
     public function Log(string $message)
     {
-        $title = '__backup_outload_' . date('Y-m-d') . '__.log';
-
-        if ($this->debugMode)
+        if ($this->debugMode === false)
         {
-            echo $this->debugPath . PHP_EOL . PHP_EOL . PHP_EOL;
-            $temp = fopen($this->debugPath . '/' . $title, 'a+');
-            fwrite($temp, date('H:i:s') . PHP_EOL . $message . PHP_EOL . PHP_EOL);
-            fclose($temp);
+            return;
         }
+
+        $temp = fopen($this->debugPath . '/' . $this->title, 'a+');
+        fwrite($temp,  '"' . date("H:i:s") . '";' . '"' . $message . '";' . PHP_EOL);
+        fclose($temp);
     }
 }
