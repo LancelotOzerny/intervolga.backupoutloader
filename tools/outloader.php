@@ -67,14 +67,15 @@ foreach ($additionalDirs as $key => $additional)
 // ###############################################################
 // #    CONNECTIONS
 // ###############################################################
-$ftp = new FtpConnection($options['connection_host'], $options['connection_port']);
-$login = $ftp->login(
-    $options['connection_login'],
-    $options['connection_password'],
-    isset($options['connection_passive_mode']) && $options['connection_passive_mode'] === 'Y' ? true : false,
-);
+$ftp = new FtpConnection([
+    'HOST' => $options['connection_host'],
+    'PORT' => $options['connection_port'],
+    'LOGIN' => $options['connection_login'],
+    'PASSWORD' => $options['connection_password'],
+    'PASSIVE' => $options['connection_passive_mode'],
+]);
 
-if ($login)
+if ($ftp->checkTryConnection())
 {
     $logger->Log(Loc::getMessage('BACKUP_OUTLOAD.FTP_AUTHORISE_SUCCESSFUL'));
 }
@@ -184,6 +185,7 @@ foreach ($backupsAfter as $backup)
 // ###############################################################
 $logger->Log(Loc::getMessage('BACKUP_OUTLOAD.START_OUTLOAD'));
 $backupParts = BackupController::Instance()->getAllParts($currentBackup);
+$ftp->connect();
 foreach ($backupParts as $part)
 {
     $send = $ftp->send(BackupController::Instance()->path . '/' . $part, $part);
@@ -199,6 +201,7 @@ foreach ($backupParts as $part)
         die(Loc::getMessage('BACKUP_OUTLOAD.ERROR.TRANSFER_ERROR'));
     }
 }
+$ftp->close();
 
 // ###############################################################
 // #    CLEAN
@@ -250,7 +253,9 @@ foreach ($additionalDirs as $additional)
         break;
     }
 
+    $ftp->connect();
     $send = $ftp->send(BackupController::Instance()->path . '/' . $tarName, $tarName);
+    $ftp->close();
 
     if ($send === false)
     {
