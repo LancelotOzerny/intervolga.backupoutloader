@@ -3,12 +3,12 @@ namespace Intervolga\BackupOutloader\Connection;
 
 class FtpConnection
 {
-    private $connection = null;
-
-    public function __construct($host, $port = 21)
-    {
-        $this->connection = ftp_connect($host, $port);
-    }
+    private $connection;
+    private string $hostname;
+    private int $port;
+    private string $login;
+    private string $password;
+    private bool $passive;
 
     public function isDir($name)
     {
@@ -21,14 +21,31 @@ class FtpConnection
         return false;
     }
 
-    public function login(string $login, string $password, bool $passive = true)
+    public function setParams(array $params = [])
+    {
+        $this->hostname =   isset($params['HOST'])      ?   $params['HOST'] : '';
+        $this->port     =   isset($params['PORT'])      ?   intval($params['PORT']) : '';
+        $this->login    =   isset($params['LOGIN'])     ?   $params['LOGIN'] : '';
+        $this->password =   isset($params['PASSWORD'])  ?   $params['PASSWORD'] : '';
+        $this->passive  =   isset($params['PASSIVE'])   ?   $params['PASSIVE'] === 'Y' : false;
+    }
+
+    public function connect()
+    {
+        $this->connection = ftp_connect($this->hostname, $this->port);
+        return $this->connection !== false && $this->login();
+    }
+
+    private function login()
     {
         if ($this->connection === null)
         {
             return false;
         }
-        $login = ftp_login($this->connection, $login, $password);
-        $passive = ftp_pasv($this->connection, $passive);
+
+        $login = ftp_login($this->connection, $this->login, $this->password);
+        $passive = ftp_pasv($this->connection, $this->passive);
+
         return $login && $passive;
     }
 
@@ -82,6 +99,15 @@ class FtpConnection
         return ftp_rmdir($this->connection, $folder);
     }
 
+    public function close()
+    {
+        if ($this->connection == null)
+        {
+            return true;
+        }
+
+        return ftp_close($this->connection);
+    }
 
     public function getDir() : bool | string
     {
