@@ -13,7 +13,7 @@ class Logger
     {
         $this->debugMode =  \COption::GetOptionString('intervolga.backupoutloader', 'debug_mode');
         $this->debugLimit = intval(\COption::GetOptionString('intervolga.backupoutloader', 'debug_limit'));
-        $this->title = '__backup_outload_' . date('Y-m-d___H:i:s') . '__.csv';
+        $this->title = '__intervolga_backup_outload_' . date('Y-m-d___H:i:s') . '__.csv';
 
         $this->setLogFolder();
 

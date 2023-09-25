@@ -75,7 +75,7 @@ $ftp = new FtpConnection([
     'PASSIVE' => $options['connection_passive_mode'],
 ]);
 
-if ($ftp->checkTryConnection())
+if ($ftp->connect())
 {
     $logger->Log(Loc::getMessage('BACKUP_OUTLOAD.FTP_AUTHORISE_SUCCESSFUL'));
 }
