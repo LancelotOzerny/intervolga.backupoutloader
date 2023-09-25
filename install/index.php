@@ -3,9 +3,9 @@ use Bitrix\Main\Localization\Loc;
 
 Loc::loadMessages(__FILE__);
 
-Class intervolga_outloader extends CModule
+Class intervolga_backupoutloader extends CModule
 {
-    var $MODULE_ID = "intervolga.outloader";
+    var $MODULE_ID = "intervolga.backupoutloader";
     var $MODULE_GROUP_RIGHTS = "Y";
 
     public function __construct()
