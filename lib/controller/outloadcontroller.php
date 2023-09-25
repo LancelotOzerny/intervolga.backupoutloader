@@ -16,6 +16,7 @@ class OutloadController
 {
     private array $options;
     private array $backupListBefore;
+    private array $additionalDirs;
     private string $currentBackup;
     private $ftp = null;
 
@@ -139,7 +140,6 @@ class OutloadController
 
         return true;
     }
-
     public function outload() : bool
     {
         if ($this->ftp->connect() === false)
@@ -165,6 +165,64 @@ class OutloadController
         }
 
         $this->ftp->close();
+
+        return true;
+    }
+    public function clean() : void
+    {
+        if ($this->options['outload_remove_all'] === 'after')
+        {
+            $backupsAfter = BackupController::Instance()->getList();
+            foreach ($backupsAfter as $backup)
+            {
+                if (in_array($backup, $this->backupListBefore))
+                {
+                    BackupController::Instance()->delete($backup);
+                    break;
+                }
+            }
+        }
+        else if ($this->options['outload_remove_current'] === 'yes')
+        {
+            BackupController::Instance()->delete($this->currentBackup);
+        }
+    }
+    public function prepareAddidional() : bool
+    {
+        return true;
+    }
+    public function sendAdditional() : bool
+    {
+        foreach ($this->additionalDirs as $additional)
+        {
+            if ($additional['exists'] === 'N')
+            {
+                return false;
+            }
+
+            $tarName =  $additional['name'] . '.tar.gz';
+            $tarDir = $_SERVER['DOCUMENT_ROOT'] . '/bitrix/backup/' . $tarName;
+
+            $archive = new \CArchiver($tarDir, true);
+            $archive->Add('"' . $additional['path'] . '"', $additional['name'], $additional['path']);
+
+            $arErrors = $archive->GetErrors();
+            if(count($arErrors) > 0)
+            {
+                return false;
+            }
+
+            $this->ftp->connect();
+            $send = $this->ftp->send(BackupController::Instance()->path . '/' . $tarName, $tarName);
+            $this->ftp->close();
+
+            if ($send === false)
+            {
+                return false;
+            }
+
+            unlink( $_SERVER['DOCUMENT_ROOT'] . '/bitrix/backup/' . $tarName);
+        }
 
         return true;
     }
