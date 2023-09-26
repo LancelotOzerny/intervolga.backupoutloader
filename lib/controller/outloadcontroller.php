@@ -258,13 +258,6 @@ class OutloadController
     }
     public function sendAdditional(array $additional)
     {
-       /*
-        [name] => fff
-        [path] => /home/bitrix/ext_www/new.roslit.ru/upload/iblock/fff
-        [parent_container] => intervolga_additional_upload_iblock
-       */
-
-
         $tarName =  $additional['name'] . '.tar.gz';
         $tarDir = $_SERVER['DOCUMENT_ROOT'] . '/bitrix/backup/' . $tarName;
 
@@ -281,8 +274,6 @@ class OutloadController
 
         if (isset($additional['parent_container']))
         {
-            fwrite(STDOUT, $additional['parent_container'] . PHP_EOL);
-
             $this->ftp->createDir($this->folder . "/" . $additional["parent_container"] . "/");
             $this->ftp->go($this->folder . "/" . $additional["parent_container"] . "/");
         }
