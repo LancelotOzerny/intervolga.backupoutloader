@@ -18,7 +18,7 @@ class OutloadController
     private array $backupListBefore;
     private array $additionalDirs;
     private string $currentBackup;
-    private $ftp = null;
+    private FtpConnection | null $ftp = null;
 
     public function __construct()
     {
@@ -33,6 +33,7 @@ class OutloadController
             'outload_path' => COption::GetOptionString('intervolga.backupoutloader', 'outload_path'),
             'outload_remove_current' => COption::GetOptionString('intervolga.backupoutloader', 'outload_remove_current'),
             'outload_remove_all' => COption::GetOptionString('intervolga.backupoutloader', 'outload_remove_all'),
+            'outload_additional' => COption::GetOptionString('intervolga.backupoutloader', 'outload_additional'),
         ];
     }
     public function checkData() : bool
@@ -197,50 +198,98 @@ class OutloadController
 
         $additionalDirs = explode("\n", $this->options['outload_additional']);
 
-        foreach ($additionalDirs as $key => $additional)
+        foreach ($additionalDirs as $key => $additionalDir)
         {
-            $arr = explode('/', $additional);
+            $itemArr = explode(' ', $additionalDir);
+            $multiple = in_array('multiple', $itemArr);
+            $name = "intervolga_additional" . str_replace('/', '_', $itemArr[0]);
 
             $this->additionalDirs[$key] = [
-                'name' => trim(end($arr)),
-                'path' => $_SERVER['DOCUMENT_ROOT'] . trim($additional),
-                'exists' => is_dir($_SERVER['DOCUMENT_ROOT']  . trim($additional)) ? 'Y' : 'N',
+                'name' => trim($name),
+                'path' => $_SERVER['DOCUMENT_ROOT'] . trim($itemArr[0]),
+                'multiple' => $multiple ? 'Y' : 'N',
+                'exists' => is_dir($_SERVER['DOCUMENT_ROOT']  . trim($itemArr[0])) ? 'Y' : 'N',
             ];
         }
     }
-    public function sendAdditional() : bool
+    public function sendAllAdditional() : bool
     {
         foreach ($this->additionalDirs as $additional)
         {
             if ($additional['exists'] === 'N')
             {
-                return false;
+                continue;
             }
 
-            $tarName =  $additional['name'] . '.tar.gz';
-            $tarDir = $_SERVER['DOCUMENT_ROOT'] . '/bitrix/backup/' . $tarName;
-
-            $archive = new \CArchiver($tarDir, true);
-            $archive->Add('"' . $additional['path'] . '"', $additional['name'], $additional['path']);
-
-            $arErrors = $archive->GetErrors();
-            if(count($arErrors) > 0)
+            if ($additional['multiple'] === 'N')
             {
-                return false;
+                $info = [
+                    'name' => $additional['name'],
+                    'path' => $additional['path'],
+                ];
+
+                print_r($info);
+                //$this->sendAdditional($info);
             }
 
-            $this->ftp->connect();
-            $send = $this->ftp->send(BackupController::Instance()->path . '/' . $tarName, $tarName);
-            $this->ftp->close();
-
-            if ($send === false)
+            if ($additional['multiple'] === 'Y')
             {
-                return false;
-            }
+                $items = scandir($additional['path']);
 
-            unlink( $_SERVER['DOCUMENT_ROOT'] . '/bitrix/backup/' . $tarName);
+                foreach ($items as $item)
+                {
+                    if ($item === '.' || $item === '..')
+                    {
+                        continue;
+                    }
+
+                    $info = [
+                        'name' => $item,
+                        'path' => $additional['path'] . '/' . $item,
+                        'parent_container' => $additional['name'],
+                    ];
+
+                    $this->sendAdditional($info);
+                }
+            }
         }
 
         return true;
+    }
+    public function sendAdditional(array $additional)
+    {
+       /*
+        [name] => fff
+        [path] => /home/bitrix/ext_www/new.roslit.ru/upload/iblock/fff
+        [parent_container] => intervolga_additional_upload_iblock
+       */
+
+
+        $tarName =  $additional['name'] . '.tar.gz';
+        $tarDir = $_SERVER['DOCUMENT_ROOT'] . '/bitrix/backup/' . $tarName;
+
+        $archive = new \CArchiver($tarDir, true);
+        $archive->Add('"' . $additional['path'] . '"', $additional['name'], $additional['path']);
+
+        $arErrors = $archive->GetErrors();
+        if(count($arErrors) > 0)
+        {
+            return false;
+        }
+
+        $this->ftp->connect();
+
+        if (isset($additional['parent_container']))
+        {
+            fwrite(STDOUT, $additional['parent_container'] . PHP_EOL);
+
+            $this->ftp->createDir($this->folder . "/" . $additional["parent_container"] . "/");
+            $this->ftp->go($this->folder . "/" . $additional["parent_container"] . "/");
+        }
+
+        $this->ftp->send($tarDir, $this->folder . "/" . $additional["parent_container"] . "/" . $tarName);
+        $this->ftp->close();
+
+        unlink( $_SERVER['DOCUMENT_ROOT'] . '/bitrix/backup/' . $tarName);
     }
 }
