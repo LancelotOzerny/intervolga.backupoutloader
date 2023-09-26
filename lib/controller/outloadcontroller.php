@@ -187,9 +187,26 @@ class OutloadController
             BackupController::Instance()->delete($this->currentBackup);
         }
     }
-    public function prepareAddidional() : bool
+    public function prepareAdditional() : void
     {
-        return true;
+        if (trim($this->options['outload_additional']) === '')
+        {
+            $this->additionalDirs = [];
+            return;
+        }
+
+        $additionalDirs = explode("\n", $this->options['outload_additional']);
+
+        foreach ($additionalDirs as $key => $additional)
+        {
+            $arr = explode('/', $additional);
+
+            $this->additionalDirs[$key] = [
+                'name' => trim(end($arr)),
+                'path' => $_SERVER['DOCUMENT_ROOT'] . trim($additional),
+                'exists' => is_dir($_SERVER['DOCUMENT_ROOT']  . trim($additional)) ? 'Y' : 'N',
+            ];
+        }
     }
     public function sendAdditional() : bool
     {
