@@ -72,7 +72,7 @@ $logger->Log(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.ADDITIONAL_PRE
 
 
 $logger->Log(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.ADDITIONAL_OUTLOAD'));
-if ($outloader->sendAdditional() === false)
+if ($outloader->sendAllAdditional() === false)
 {
     $logger->Log(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.ERROR.ADDITIONAL_OUTLOAD'));
     die(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.ERROR.ADDITIONAL_OUTLOAD'));

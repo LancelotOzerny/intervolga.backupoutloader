@@ -258,13 +258,6 @@ class OutloadController
     }
     public function sendAdditional(array $additional)
     {
-       /*
-        [name] => fff
-        [path] => /home/bitrix/ext_www/new.roslit.ru/upload/iblock/fff
-        [parent_container] => intervolga_additional_upload_iblock
-       */
-
-
         $tarName =  $additional['name'] . '.tar.gz';
         $tarDir = $_SERVER['DOCUMENT_ROOT'] . '/bitrix/backup/' . $tarName;
 
