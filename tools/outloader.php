@@ -8,77 +8,77 @@ set_time_limit(0);
 
 if (\Bitrix\Main\Loader::includeModule('intervolga.backupoutloader') === false)
 {
-    die(Loc::getMessage('BACKUP_OUTLOAD.ERROR.MODULE_INCLUDE'));
+    die(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.ERROR.MODULE_INCLUDE'));
 }
 
 $logger = new \Intervolga\BackupOutloader\Log\Logger();
 $outloader = new \Intervolga\BackupOutloader\Controller\OutloadController();
 
-$logger->Log('Начало выгрузки. Проверка данных.');
+$logger->Log(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.DATA_CHECK'));
 
 if ($outloader->checkData() === false)
 {
-    $logger->Log('Проверка данных провалена. Повторите попытку с новыми данными!');
-    die('Проверка данных провалена. Повторите попытку с новыми данными!');
+    $logger->Log(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.ERROR.DATA_CHECK'));
+    die(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.ERROR.DATA_CHECK'));
 }
-$logger->Log('Проверка данных прошла успешно.');
+$logger->Log(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.DATA_CHECK_SUCCESSFUL'));
 
 
 
-$logger->Log('Подготовка данных к выгрузке.');
+$logger->Log(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.DATA_PREPARE'));
 if ($outloader->prepare() === false)
 {
-    $logger->Log('Подготовка данных к выгрузке провалена. Повторите попытку позже.');
-    die('Подготовка данных к выгрузке провалена. Повторите попытку позже.');
+    $logger->Log(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.ERROR.DATA_PREPARE'));
+    die(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.ERROR.DATA_PREPARE'));
 }
-$logger->Log('Подготовка данных к выгрузке прошла успешно.');
+$logger->Log(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.DATA_PREPARE_SUCCESSFUL'));
 
 
 
-$logger->Log('Создание резервной копии');
+$logger->Log(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.BACKUP_CREATE'));
 if ($outloader->create() === false)
 {
-    $logger->Log('Создание резервной копии провалено. Повторите попытку позже или обратитесь к программистам за помощью!');
-    die('Создание резервной копии провалено. Повторите попытку позже или обратитесь к программистам за помощью!');
+    $logger->Log(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.ERROR.BACKUP_CREATE'));
+    die(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.ERROR.BACKUP_CREATE'));
 }
-$logger->Log('Создание резервной копии прошло успешно');
+$logger->Log(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.BACKUP_CREATE_SUCCESSFUL'));
 
 
 
-$logger->Log('Отправка резервной копии по FTP');
+$logger->Log(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.BACKUP_OUTLOAD'));
 if ($outloader->outload() === false)
 {
-    $logger->Log('Отправка резервной копии по FTP провалена. Повторите попытку позже или обратитесь к программистам за помощью!');
-    die('Отправка резервной копии по FTP провалена. Повторите попытку позже или обратитесь к программистам за помощью!');
+    $logger->Log(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.ERROR.BACKUP_OUTLOAD'));
+    die(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.ERROR.BACKUP_OUTLOAD'));
 }
-$logger->Log('Отправка резервной копии по FTP прошла успешно');
+$logger->Log(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.BACKUP_OUTLOAD_SUCCESSFUL'));
 
 
 
-$logger->Log('Очистка локальной директории');
+$logger->Log(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.LOCAL_CLEAN'));
 $outloader->clean();
-$logger->Log('Очистка локальной директории прошла успешно');
+$logger->Log(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.LOCAL_CLEAN_SUCCESSFUL'));
 
 
 
-$logger->Log('Подготовка дополнительных данных к выгрузке.');
+$logger->Log(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.ADDITIONAL_PREPARE'));
 if ($outloader->prepareAdditional() === false)
 {
-    $logger->Log('Подготовка дополнительных данных к выгрузке провалена. Повторите попытку позже.');
-    die('Подготовка дополнительных данных к выгрузке провалена. Повторите попытку позже.');
+    $logger->Log(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.ERROR.ADDITIONAL_PREPARE'));
+    die(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.ERROR.ADDITIONAL_PREPARE'));
 }
-$logger->Log('Подготовка дополнительных данных к выгрузке прошла успешно.');
+$logger->Log(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.ADDITIONAL_PREPARE_SUCCESSFUL'));
 
 
 
-$logger->Log('Отправка дополнительных директорий по FTP');
+$logger->Log(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.ADDITIONAL_OUTLOAD'));
 if ($outloader->sendAdditional() === false)
 {
-    $logger->Log('Отправка дополнительных директорий по FTP провалена. Повторите попытку позже или обратитесь к программистам за помощью!');
-    die('Отправка дополнительных директорий по FTP провалена. Повторите попытку позже или обратитесь к программистам за помощью!');
+    $logger->Log(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.ERROR.ADDITIONAL_OUTLOAD'));
+    die(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.ERROR.ADDITIONAL_OUTLOAD'));
 }
-$logger->Log('Отправка дополнительных директорий по FTP прошла успешно');
+$logger->Log(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.ADDITIONAL_OUTLOAD_SUCCESSFUL'));
 
 
 
-$logger->Log('Выгрузка прошла успешно.');
+$logger->Log(Loc::getMessage('INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.OUTLOAD_SUCCESSFUL'));

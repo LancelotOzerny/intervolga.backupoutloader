@@ -1,34 +1,23 @@
 <?php
-// ###############################################################
-// #    MESSAGES
-// ###############################################################
-$MESS['BACKUP_OUTLOAD.MODULE_INCLUDE'] = 'Удалось подключить модуль intervolga.backupoutloader';
-$MESS['BACKUP_OUTLOAD.GET_OPTION_DATA'] = 'Получение настроек модуля';
-$MESS['BACKUP_OUTLOAD.FTP_AUTHORISE_SUCCESSFUL'] = 'Удалось пройти FTP вторизацию';
-$MESS['BACKUP_OUTLOAD.PREPARE_TO_OUTLOAD'] = 'Подготовка к выгрузке';
-$MESS['BACKUP_OUTLOAD.PREPARE_CONTAINER_FOLDER'] = 'Подготовка директории-контейнера для выгрузки';
-$MESS['BACKUP_OUTLOAD.DELETE_LIMIT'] = 'Удаление старых резервных копий (вхождение в лимит максимального колическтва резервных копий)';
-$MESS['BACKUP_OUTLOAD.PREPARE_TO_DIR_OUTLOAD'] = 'Подготовка директории выгрузки';
-$MESS['BACKUP_OUTLOAD.START_BACKUP_CREATE'] = 'Создание резервной копии';
-$MESS['BACKUP_OUTLOAD.SUCCESS_BECKUP_CREATED'] = 'Резервная копия создана';
-$MESS['BACKUP_OUTLOAD.START_OUTLOAD'] = 'Выгрузка резервной копии';
-$MESS['BACKUP_OUTLOAD.START_CLEAN'] = 'Начало очистки';
-$MESS['BACKUP_OUTLOAD.DELETE_ALL_BACKUP_BEFORE'] = 'Удаление всех резервных копий до выгрузки';
-$MESS['BACKUP_OUTLOAD.DELETE_ALL_BACKUP_AFTER'] = 'Удаление всех резервных копий после выгрузки';
-$MESS['BACKUP_OUTLOAD.DELETE_NEW_BACKUP'] = 'Удаление новой резервной копии';
-$MESS['BACKUP_OUTLOAD.SUCCESS_OUTLOAD'] = 'Выгрузка успешно завершена';
-$MESS['BACKUP_OUTLOAD.START_ARCHIVE_ADDITIONAL'] = 'Начало выгрузки дополнительных директорий';
-$MESS['BACKUP_OUTLOAD.END_ARCHIVE_ADDITIONAL'] = 'Конец выгрузки дополнительных директорий';
-$MESS['BACKUP_OUTLOAD.ADDITIONAL_DIRECTORY'] = 'Начало выгрузки директории ';
-
-// ###############################################################
-// #    ERRORS
-// ###############################################################
-$MESS['BACKUP_OUTLOAD.ERROR.TRANSFER_ERROR'] = 'Ошибка передачи части резервной копии';
-$MESS['BACKUP_OUTLOAD.ERROR.BACKUP_CREATE'] = 'Ошибка создания резервной копии: ';
-$MESS['BACKUP_OUTLOAD.ERROR.FTP_AUTHORISE'] = 'Не удалось пройти FTP вторизацию';
-$MESS['BACKUP_OUTLOAD.ERROR.CHECK_SETTING'] = 'Ошибка в настройке данных. Измените настройки модуля';
-$MESS['BACKUP_OUTLOAD.ERROR.MODULE_INCLUDE'] = 'Не удалось подключить модуль';
-$MESS['BACKUP_OUTLOAD.ERROR.ARCHIVE_ADDITIONAL'] = 'Выгрузка дополнительных директорий звершилась с ошибкой: ';
-$MESS['BACKUP_OUTLOAD.ERROR.ADDITIONAL_DIRECTORY_NOT_EXISTS'] = 'Директория не найдена. Выгрузка данной директории пропущена.';
-$MESS['BACKUP_OUTLOAD.ERROR.TRANSFER_ADDITIONAL_ERROR'] = 'Не удалось отправить архив';
+$MESS['INTERVOLGA_BACKUP_OUTLOADER.ERROR.MODULE_INCLUDE'] = 'Не удалось подключить модуль intervolga.backupoutloader';
+$MESS['INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.DATA_CHECK'] = 'Начало выгрузки. Проверка данных.';
+$MESS['INTERVOLGA_BACKUP_OUTLOADER.ERROR.DATA_CHECK'] = 'Проверка данных провалена. Повторите попытку с новыми данными!';
+$MESS['INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.DATA_CHECK_SUCCESSFUL'] = 'Проверка данных прошла успешно.';
+$MESS['INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.DATA_PREPARE'] = 'Подготовка данных к выгрузке.';
+$MESS['INTERVOLGA_BACKUP_OUTLOADER.ERROR.DATA_PREPARE'] = 'Подготовка данных к выгрузке провалена. Повторите попытку позже.';
+$MESS['INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.DATA_PREPARE_SUCCESSFUL'] = 'Подготовка данных к выгрузке прошла успешно.';
+$MESS['INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.BACKUP_CREATE'] = 'Создание резервной копии';
+$MESS['INTERVOLGA_BACKUP_OUTLOADER.ERROR.BACKUP_CREATE'] = 'Создание резервной копии провалено. Повторите попытку позже или обратитесь к программистам за помощью!';
+$MESS['INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.BACKUP_CREATE_SUCCESSFUL'] = 'Создание резервной копии прошло успешно';
+$MESS['INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.BACKUP_OUTLOAD'] = 'Отправка резервной копии по FTP';
+$MESS['INTERVOLGA_BACKUP_OUTLOADER.ERROR.BACKUP_OUTLOAD'] = 'Отправка резервной копии по FTP провалена. Повторите попытку позже или обратитесь к программистам за помощью!';
+$MESS['INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.BACKUP_OUTLOAD_SUCCESSFUL'] = 'Отправка резервной копии по FTP прошла успешно';
+$MESS['INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.LOCAL_CLEAN'] = 'Очистка локальной директории';
+$MESS['INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.LOCAL_CLEAN_SUCCESSFUL'] = 'Очистка локальной директории прошла успешно';
+$MESS['INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.ADDITIONAL_PREPARE'] = 'Подготовка дополнительных данных к выгрузке.';
+$MESS['INTERVOLGA_BACKUP_OUTLOADER.ERROR.ADDITIONAL_PREPARE'] = 'Подготовка дополнительных данных к выгрузке провалена. Повторите попытку позже.';
+$MESS['INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.ADDITIONAL_PREPARE_SUCCESSFUL'] = 'Подготовка дополнительных данных к выгрузке прошла успешно.';
+$MESS['INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.ADDITIONAL_OUTLOAD'] = 'Отправка дополнительных директорий по FTP';
+$MESS['INTERVOLGA_BACKUP_OUTLOADER.ERROR.ADDITIONAL_OUTLOAD'] = 'Отправка дополнительных директорий по FTP провалена. Повторите попытку позже или обратитесь к программистам за помощью!';
+$MESS['INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.ADDITIONAL_OUTLOAD_SUCCESSFUL'] = 'Отправка дополнительных директорий по FTP прошла успешно';
+$MESS['INTERVOLGA_BACKUP_OUTLOADER.MESSAGE.OUTLOAD_SUCCESSFUL'] = 'Выгрузка прошла успешно.';
