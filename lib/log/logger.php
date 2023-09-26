@@ -16,10 +16,7 @@ class Logger
         $this->title = '__intervolga_backup_outload_' . date('Y-m-d___H:i:s') . '__.csv';
 
         $this->setLogFolder();
-
-        $temp = fopen($this->debugPath . '/' . $this->title, 'a+');
-        fwrite($temp, "Data;Message;"  . PHP_EOL);
-        fclose($temp);
+        $this->Log("Data;Message;");
     }
 
     private function setLogFolder()
