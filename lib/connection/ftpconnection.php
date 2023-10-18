@@ -117,7 +117,7 @@ class FtpConnection
 
     public function close()
     {
-        if ($this->connection == null)
+        if ($this->connection === null && is_bool($this->connection))
         {
             return true;
         }
@@ -192,7 +192,7 @@ class FtpConnection
 
     public function __destruct()
     {
-        if ($this->connection === null)
+        if ($this->connection === null || is_bool($this->connection))
         {
             return false;
         }
