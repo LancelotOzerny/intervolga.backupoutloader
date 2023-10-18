@@ -88,9 +88,9 @@ class OutloadController
             }
         }
 
-        if (isset($options['outload_count']) && intval($options['outload_count']) > 0)
+        if (isset($this->options['outload_count']) && intval($this->options['outload_count']) > 0)
         {
-            $toDeleteCount = (1 + count($backupDirs) - intval($options['outload_count']));
+            $toDeleteCount = (1 + count($backupDirs) - intval($this->options['outload_count']));
             if ($toDeleteCount > 0)
             {
                 asort($backupDirs);
